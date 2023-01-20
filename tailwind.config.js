@@ -8,7 +8,7 @@ module.exports = {
     extend: {
       colors: {
         oma: {
-          light: '#e2e8f0',
+          light: '#94a3b8',
           DEFAULT: '#475569',
           shock: '#67e8f9',
           dark: '#334155',

@@ -2,6 +2,8 @@ import type { NextPage } from 'next';
 import React, { useEffect, useState } from 'react';
 import ProductCard from './components/ProductCard';
 import ShoppingCart from './components/ShoppingCart';
+import CategoryChoice from './components/CategoryChoice';
+import MyDialog from './components/MyDialog';
 
 const Home: NextPage = () => {
   const [products, setProducts] = useState<any[]>([])
@@ -23,20 +25,40 @@ const Home: NextPage = () => {
   return (
     <div className='dark:bg-slate-900'>
       <div className="">
-        <div className=" text-oma-light text-center text-4xl pt-2 p-4 bg-oma-dark">
-          Laurin verkkokauppa
+        <div>
+          <div className=" text-white font-bold text-center text-4xl pt-2 p-4 bg-oma-dark">
+            Laurin verkkokauppa
+          </div>
         </div>
-        <ShoppingCart cart={cart} setCart={setCart} showCart={showCart} deleteItem={deleteItem} />
-        <div className=" text-oma-light text-center text-2xl p-2 bg-oma-dark rounded-b-2xl">
-          Ostoskori {''}
-          <button className="bg-oma-dark  hover:bg-oma-light hover:text-slate-800 active:bg-white text-oma-light
-                     font-semibold py-2 pt-1 px-2 border border-slate-900
-                     hover:border-transparent rounded-xl" 
-                     onClick={() => (setShowCart(!showCart))}>
-            Näytä
-          </button>
-        </div>
+
+
+
       </div>
+
+      
+
+
+      <div className="p-2 rounded-br-xl bg-oma justify-around flex">
+
+        <button className="bg-oma-dark text-white hover:bg-oma-light 
+        hover:text-slate-800 active:bg-white
+            font-semibold py-2 pt-1 px-2 border 
+          border-slate-900 hover:border-transparent rounded-xl"
+          onClick={() => (setShowCart(!showCart))}>
+          {showCart ? 'Piilota ostoskori' : 'Näytä ostoskori'}
+        </button>
+
+        <button className="bg-oma-dark  hover:bg-oma-light hover:text-slate-800 active:bg-white text-white
+                     font-semibold py-2 pt-1 px-2 border border-slate-900
+                     hover:border-transparent rounded-2xl">
+          Siirry kassalle
+        </button>
+
+      </div>
+      <div className="grid w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4 2xl:w-1/5 place-items-center rounded-b-2xl bg-slate-400">
+      <ShoppingCart cart={cart} setCart={setCart} showCart={showCart} deleteItem={deleteItem} />
+      </div>
+
       <div className="flex flex-wrap dark:bg-slate-900">
         {products.map((product) => (
           <ProductCard product={product} key={product.id} cart={cart} setCart={setCart} />
