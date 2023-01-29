@@ -1,13 +1,15 @@
 import type { NextPage } from 'next';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import { ProductType } from "./interfaces"
 import ProductCard from './components/ProductCard';
 import ShoppingCart from './components/ShoppingCart';
-import CategoryChoice from './components/CategoryChoice';
-import MyDialog from './components/MyDialog';
+
+
 
 const Home: NextPage = () => {
-  const [products, setProducts] = useState<any[]>([])
-  const [cart, setCart] = useState<any[]>([])
+  const [products, setProducts] = useState<ProductType[]>([])
+  const [cart, setCart] = useState<ProductType[]>([])
   const [showCart, setShowCart] = useState(false)
 
   useEffect(() => {
@@ -23,45 +25,40 @@ const Home: NextPage = () => {
   }
 
   return (
-    <div className='dark:bg-slate-900'>
+    <div className='bg-slate-700'>
       <div className="">
         <div>
-          <div className=" text-white font-bold text-center text-4xl pt-2 p-4 bg-oma-dark">
+          <div className=" text-white font-semibold text-center text-4xl pt-2 p-4 bg-oma-dark">
             Laurin verkkokauppa
           </div>
         </div>
-
-
-
       </div>
-
-      
-
-
       <div className="p-2 rounded-br-xl bg-oma justify-around flex">
 
-        <button className="bg-oma-dark text-white hover:bg-oma-light 
-        hover:text-slate-800 active:bg-white
+        <button className="bg-slate-400 w-28 text-black hover:bg-slate-200 
+       active:bg-white
             font-semibold py-2 pt-1 px-2 border 
           border-slate-900 hover:border-transparent rounded-xl"
           onClick={() => (setShowCart(!showCart))}>
-          {showCart ? 'Piilota ostoskori' : 'Näytä ostoskori'}
+          {showCart ? 'Piilota' : 'Ostoskori'}
         </button>
 
-        <button className="bg-oma-dark  hover:bg-oma-light hover:text-slate-800 active:bg-white text-white
+        <Link href="/checkout">
+          <button className="bg-slate-400 w-28 text-black hover:bg-slate-200 active:bg-white 
                      font-semibold py-2 pt-1 px-2 border border-slate-900
                      hover:border-transparent rounded-2xl">
-          Siirry kassalle
-        </button>
+            Kassalle
+          </button>
+        </Link>
 
       </div>
-      <div className="grid w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4 2xl:w-1/5 place-items-center rounded-b-2xl bg-slate-400">
-      <ShoppingCart cart={cart} setCart={setCart} showCart={showCart} deleteItem={deleteItem} />
-      </div>
+
+      <ShoppingCart cart={cart} showCart={showCart} deleteItem={deleteItem} />
+
 
       <div className="flex flex-wrap dark:bg-slate-900">
         {products.map((product) => (
-          <ProductCard product={product} key={product.id} cart={cart} setCart={setCart} />
+          <ProductCard key={product.id} product={product} cart={cart} setCart={setCart} />
         ))}
       </div>
     </div>
